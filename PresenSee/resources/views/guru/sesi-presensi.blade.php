@@ -12,13 +12,8 @@
     <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
         <div class="flex items-center justify-between">
             <div>
-<<<<<<< HEAD
                 <p class="text-sm font-medium text-gray-600">Total Sesi</p>
                 <p class="text-2xl font-bold text-gray-900 mt-1">{{ $stats['total'] }}</p>
-=======
-                <p class="text-sm font-medium text-gray-600">Total Sesi Hari Ini</p>
-                <p class="text-2xl font-bold text-gray-900 mt-1">8</p>
->>>>>>> eeb826f7549aecf9b248915a5b3b58e60a6686dc
             </div>
             <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
                 <svg class="w-6 h-6 text-[#004680]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
