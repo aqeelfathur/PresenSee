@@ -2,7 +2,9 @@
 
 @section('title', 'Dashboard Guru')
 @section('page-title', 'Dashboard Guru')
-@section('page-subtitle', 'Selamat datang kembali, {{ Auth::user()->nama_user }}!')
+@section('page-subtitle')
+    Selamat datang kembali, {{ Auth::user()->nama_user }}!
+@endsection
 
 @section('content')
 <!-- Summary Cards -->
