@@ -15,13 +15,10 @@ class Siswa extends Model
     protected $fillable = [
         'nis',
         'nama_siswa',
-        'no_handphone_siswa',
-        'email_siswa',
-        'tanggal_lahir_siswa',
         'nama_walimurid',
         'no_handphone_walimurid',
         'foto_siswa',
-        'status',
+        'kelas',
     ];
 
     protected $casts = [
