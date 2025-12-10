@@ -94,13 +94,6 @@
     </div>
     
     <div class="flex items-center gap-3">
-        <button onclick="openModal('importExcelModal')" class="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors duration-200 shadow-sm">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
-            </svg>
-            Import Excel
-        </button>
-        
         <button onclick="openModal('addSiswaModal')" class="flex items-center gap-2 px-4 py-2 bg-[#004680] text-white rounded-lg hover:bg-[#003766] transition-colors duration-200 shadow-sm">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
@@ -125,12 +118,12 @@
                     <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Nama Siswa</th>
                     <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">NIS</th>
                     <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Kelas</th>
-                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Email</th>
+                    <th class="px-6 py-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">Status Wajah</th>
                     <th class="px-6 py-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">Aksi</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-100">
-                <!-- Row 1 -->
+                
                 <tr class="hover:bg-gray-50 transition-colors duration-150">
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1</td>
                     <td class="px-6 py-4 whitespace-nowrap">
@@ -145,7 +138,11 @@
                             X-1
                         </span>
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">ahmad.rizki@student.presensee.sch.id</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-center">
+                         <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-700">
+                            Belum Terdaftar
+                        </span>
+                    </td>
                     <td class="px-6 py-4 whitespace-nowrap text-center">
                         <div class="flex items-center justify-center gap-2">
                             <button onclick="openModal('editSiswaModal')" class="p-1.5 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors duration-200">
@@ -162,7 +159,6 @@
                     </td>
                 </tr>
                 
-                <!-- Row 2 -->
                 <tr class="hover:bg-gray-50 transition-colors duration-150">
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2</td>
                     <td class="px-6 py-4 whitespace-nowrap">
@@ -177,7 +173,11 @@
                             X-1
                         </span>
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">siti.nurhaliza@student.presensee.sch.id</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-center">
+                         <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
+                            Terdaftar
+                        </span>
+                    </td>
                     <td class="px-6 py-4 whitespace-nowrap text-center">
                         <div class="flex items-center justify-center gap-2">
                             <button onclick="openModal('editSiswaModal')" class="p-1.5 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors duration-200">
@@ -194,7 +194,6 @@
                     </td>
                 </tr>
                 
-                <!-- Row 3 -->
                 <tr class="hover:bg-gray-50 transition-colors duration-150">
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">3</td>
                     <td class="px-6 py-4 whitespace-nowrap">
@@ -209,7 +208,11 @@
                             XI-2
                         </span>
                     </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">budi.santoso@student.presensee.sch.id</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-center">
+                         <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
+                            Terdaftar
+                        </span>
+                    </td>
                     <td class="px-6 py-4 whitespace-nowrap text-center">
                         <div class="flex items-center justify-center gap-2">
                             <button onclick="openModal('editSiswaModal')" class="p-1.5 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors duration-200">
@@ -229,7 +232,6 @@
         </table>
     </div>
     
-    <!-- Pagination -->
     <div class="px-6 py-4 border-t border-gray-100 flex items-center justify-between">
         <div class="text-sm text-gray-600">
             Menampilkan <span class="font-semibold">1-3</span> dari <span class="font-semibold">1,247</span> siswa
@@ -245,7 +247,6 @@
     </div>
 </div>
 
-<!-- Modal Tambah Siswa -->
 <div id="addSiswaModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
         <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
@@ -257,26 +258,35 @@
             </button>
         </div>
         
-        <form class="p-6 space-y-4">
+        <form class="p-6 space-y-5">
+            
+            <h4 class="text-base font-semibold text-gray-800 border-b pb-2">Data Siswa</h4>
             <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap</label>
-                    <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#004680] focus:border-transparent" placeholder="Masukkan nama lengkap">
+                    <label for="nama_siswa" class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap Siswa</label>
+                    <input type="text" id="nama_siswa" name="nama_siswa" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#004680] focus:border-transparent" placeholder="Masukkan nama lengkap siswa">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">NIS</label>
-                    <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#004680] focus:border-transparent" placeholder="Masukkan NIS">
+                    <label for="nis" class="block text-sm font-medium text-gray-700 mb-2">NIS (Nomor Induk Siswa)</label>
+                    <input type="text" id="nis" name="nis" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#004680] focus:border-transparent" placeholder="Contoh: 2024001">
+                </div>
+            </div>
+            
+            <h4 class="text-base font-semibold text-gray-800 border-b pb-2 pt-2">Data Kontak Wali Murid</h4>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label for="nama_walimurid" class="block text-sm font-medium text-gray-700 mb-2">Nama Wali Murid</label>
+                    <input type="text" id="nama_walimurid" name="nama_walimurid" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#004680] focus:border-transparent" placeholder="Nama lengkap wali/orang tua">
+                </div>
+                <div>
+                    <label for="no_hp_walimurid" class="block text-sm font-medium text-gray-700 mb-2">No. Handphone Wali</label>
+                    <input type="text" id="no_hp_walimurid" name="no_hp_walimurid" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#004680] focus:border-transparent" placeholder="Contoh: 0812xxxxxx">
                 </div>
             </div>
             
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                <input type="email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#004680] focus:border-transparent" placeholder="nama@student.presensee.sch.id">
-            </div>
-            
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Kelas</label>
-                <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#004680] focus:border-transparent">
+                <label for="kelas" class="block text-sm font-medium text-gray-700 mb-2">Kelas Siswa</label>
+                <select id="kelas" name="kelas" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#004680] focus:border-transparent">
                     <option>Pilih Kelas</option>
                     <option>X-1</option>
                     <option>X-2</option>
@@ -286,12 +296,27 @@
                 </select>
             </div>
             
+            <h4 class="text-base font-semibold text-gray-800 border-b pb-2 pt-2">Pendaftaran Wajah</h4>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Foto Siswa untuk Presensi Wajah</label>
+                <div class="p-4 border border-blue-200 rounded-lg text-center bg-blue-50">
+                     <p class="text-sm text-gray-700 mb-3">Tindakan ini akan mengaktifkan kamera perangkat. Pastikan wajah siswa berada di tengah dan pencahayaan cukup saat proses pengambilan foto.</p>
+                     <button type="button" id="startFaceRegistration" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg shadow-sm text-white bg-[#004680] hover:bg-[#003766] transition-colors duration-200">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.865-1.297A2 2 0 0111.933 3h.134a2 2 0 011.664.89l.865 1.297A2 2 0 0017.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        Mulai Pendaftaran Wajah
+                    </button>
+                </div>
+            </div>
+            
             <div class="flex items-center justify-end gap-3 pt-4">
                 <button type="button" onclick="closeModal('addSiswaModal')" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors duration-200">
                     Batal
                 </button>
                 <button type="submit" class="px-4 py-2 bg-[#004680] text-white rounded-lg hover:bg-[#003766] transition-colors duration-200">
-                    Simpan
+                    Simpan Data Siswa
                 </button>
             </div>
         </form>
@@ -310,32 +335,60 @@
             </button>
         </div>
         
-        <form class="p-6 space-y-4">
+        <form class="p-6 space-y-5">
+            
+            <h4 class="text-base font-semibold text-gray-800 border-b pb-2">Data Siswa</h4>
             <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap</label>
-                    <input type="text" value="Ahmad Rizki Fauzan" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#004680] focus:border-transparent">
+                    <label for="edit_nama_siswa" class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap Siswa</label>
+                    <input type="text" id="edit_nama_siswa" name="nama_siswa" value="Ahmad Rizki Fauzan" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#004680] focus:border-transparent">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">NIS</label>
-                    <input type="text" value="2401001" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#004680] focus:border-transparent">
+                    <label for="edit_nis" class="block text-sm font-medium text-gray-700 mb-2">NIS (Nomor Induk Siswa)</label>
+                    <input type="text" id="edit_nis" name="nis" value="2401001" readonly class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 cursor-not-allowed text-gray-500">
+                </div>
+            </div>
+            
+            <h4 class="text-base font-semibold text-gray-800 border-b pb-2 pt-2">Data Kontak Wali Murid</h4>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label for="edit_nama_walimurid" class="block text-sm font-medium text-gray-700 mb-2">Nama Wali Murid</label>
+                    <input type="text" id="edit_nama_walimurid" name="nama_walimurid" value="Bambang Santoso" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#004680] focus:border-transparent">
+                </div>
+                <div>
+                    <label for="edit_no_hp_walimurid" class="block text-sm font-medium text-gray-700 mb-2">No. Handphone Wali</label>
+                    <input type="text" id="edit_no_hp_walimurid" name="no_hp_walimurid" value="081234567890" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#004680] focus:border-transparent">
                 </div>
             </div>
             
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                <input type="email" value="ahmad.rizki@student.presensee.sch.id" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#004680] focus:border-transparent">
-            </div>
-            
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Kelas</label>
-                <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#004680] focus:border-transparent">
-                    <option selected>X-1</option>
-                    <option>X-2</option>
+                <label for="edit_kelas" class="block text-sm font-medium text-gray-700 mb-2">Kelas Siswa</label>
+                <select id="edit_kelas" name="kelas" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#004680] focus:border-transparent">
+                    <option>X-1</option>
+                    <option selected>X-2</option>
                     <option>XI-1</option>
                     <option>XI-2</option>
                     <option>XII-1</option>
                 </select>
+            </div>
+            
+            <h4 class="text-base font-semibold text-gray-800 border-b pb-2 pt-2">Status Pendaftaran Wajah)</h4>
+            <div>
+                <div class="p-4 border border-green-300 rounded-lg bg-green-50">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-green-800">Status:</p>
+                            <p class="font-bold text-lg text-green-900">Wajah Sudah Terdaftar</p>
+                            <p class="text-xs text-gray-600 mt-1">Terakhir diperbarui: 05/12/2025</p>
+                        </div>
+                        <button type="button" id="updateFaceRegistration" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg shadow-sm text-white bg-red-600 hover:bg-red-700 transition-colors duration-200">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 10m2.404 10.938v-5h-.582m15.356-2A8.001 8.001 0 014.582 14m2.404-3.062H12m0 0l-1.5-1.5M12 11.938l-1.5 1.5"/>
+                            </svg>
+                            Ulangi Pendaftaran Wajah
+                        </button>
+                    </div>
+                </div>
             </div>
             
             <div class="flex items-center justify-end gap-3 pt-4">
@@ -343,57 +396,7 @@
                     Batal
                 </button>
                 <button type="submit" class="px-4 py-2 bg-[#004680] text-white rounded-lg hover:bg-[#003766] transition-colors duration-200">
-                    Update
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<!-- Modal Import Excel -->
-<div id="importExcelModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-2xl shadow-xl max-w-lg w-full">
-        <div class="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
-            <h3 class="text-lg font-bold text-gray-900">Import Data Siswa dari Excel</h3>
-            <button onclick="closeModal('importExcelModal')" class="text-gray-400 hover:text-gray-600">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                </svg>
-            </button>
-        </div>
-        
-        <form class="p-6 space-y-4">
-            <div class="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center">
-                <svg class="w-16 h-16 mx-auto text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
-                </svg>
-                <p class="text-sm font-medium text-gray-900 mb-1">Klik untuk upload atau drag & drop</p>
-                <p class="text-xs text-gray-500">File Excel (.xlsx, .xls) maksimal 5MB</p>
-                <input type="file" accept=".xlsx,.xls" class="hidden">
-            </div>
-            
-            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                <div class="flex items-start gap-3">
-                    <svg class="w-5 h-5 text-blue-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                    </svg>
-                    <div class="text-sm text-blue-700">
-                        <p class="font-medium mb-1">Format Excel yang benar:</p>
-                        <ul class="list-disc list-inside space-y-1 text-xs">
-                            <li>Kolom: Nama, NIS, Email, Kelas</li>
-                            <li>Tanpa header (langsung data)</li>
-                            <li>Download template <a href="#" class="underline font-medium">di sini</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="flex items-center justify-end gap-3 pt-4">
-                <button type="button" onclick="closeModal('importExcelModal')" class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors duration-200">
-                    Batal
-                </button>
-                <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors duration-200">
-                    Import
+                    Update Data Siswa
                 </button>
             </div>
         </form>
