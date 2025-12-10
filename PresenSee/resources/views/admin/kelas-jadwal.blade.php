@@ -112,24 +112,16 @@
                 <tr>
                     <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">No</th>
                     <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Nama Kelas</th>
-                    <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Wali Kelas</th>
                     <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Jumlah Siswa</th>
                     <th class="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Jadwal</th>
                     <th class="px-6 py-4 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">Aksi</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-100">
-                <!-- Row 1 -->
                 <tr class="hover:bg-gray-50 transition-colors duration-150">
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1</td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         <span class="text-sm font-semibold text-gray-900">Kelas X-1</span>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="flex items-center gap-2">
-                            <img src="https://ui-avatars.com/api/?name=Budi+Santoso&background=004680&color=fff&size=128" alt="Wali" class="w-6 h-6 rounded-full">
-                            <span class="text-sm text-gray-900">Budi Santoso, S.Pd</span>
-                        </div>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">35 siswa</td>
                     <td class="px-6 py-4 whitespace-nowrap">
@@ -156,17 +148,10 @@
                     </td>
                 </tr>
                 
-                <!-- Row 2 -->
                 <tr class="hover:bg-gray-50 transition-colors duration-150">
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">2</td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         <span class="text-sm font-semibold text-gray-900">Kelas X-2</span>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="flex items-center gap-2">
-                            <img src="https://ui-avatars.com/api/?name=Siti+Nurhaliza&background=004680&color=fff&size=128" alt="Wali" class="w-6 h-6 rounded-full">
-                            <span class="text-sm text-gray-900">Siti Nurhaliza, M.Pd</span>
-                        </div>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">34 siswa</td>
                     <td class="px-6 py-4 whitespace-nowrap">
@@ -193,17 +178,10 @@
                     </td>
                 </tr>
                 
-                <!-- Row 3 -->
                 <tr class="hover:bg-gray-50 transition-colors duration-150">
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">3</td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         <span class="text-sm font-semibold text-gray-900">Kelas XI-1</span>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <div class="flex items-center gap-2">
-                            <img src="https://ui-avatars.com/api/?name=Ahmad+Rahman&background=004680&color=fff&size=128" alt="Wali" class="w-6 h-6 rounded-full">
-                            <span class="text-sm text-gray-900">Ahmad Rahman, S.Si</span>
-                        </div>
                     </td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">33 siswa</td>
                     <td class="px-6 py-4 whitespace-nowrap">
@@ -233,7 +211,6 @@
         </table>
     </div>
     
-    <!-- Pagination -->
     <div class="px-6 py-4 border-t border-gray-100 flex items-center justify-between">
         <div class="text-sm text-gray-600">
             Menampilkan <span class="font-semibold">1-3</span> dari <span class="font-semibold">36</span> kelas
@@ -264,16 +241,6 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Nama Kelas</label>
                 <input type="text" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#004680] focus:border-transparent" placeholder="Contoh: X-1, XI-IPA-2">
-            </div>
-            
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Wali Kelas</label>
-                <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#004680] focus:border-transparent">
-                    <option>Pilih Wali Kelas</option>
-                    <option>Budi Santoso, S.Pd</option>
-                    <option>Siti Nurhaliza, M.Pd</option>
-                    <option>Ahmad Rahman, S.Si</option>
-                </select>
             </div>
             
             <div>

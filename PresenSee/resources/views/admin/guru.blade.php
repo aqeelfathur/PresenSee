@@ -7,7 +7,7 @@
 @section('content')
 
 <!-- Stats Cards -->
-<div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
     <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
         <div class="flex items-center justify-between">
             <div>
@@ -31,20 +31,6 @@
             <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
                 <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-            </div>
-        </div>
-    </div>
-    
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
-        <div class="flex items-center justify-between">
-            <div>
-                <p class="text-sm font-medium text-gray-600">Cuti/Izin</p>
-                <p class="text-2xl font-bold text-yellow-600 mt-1">2</p>
-            </div>
-            <div class="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
-                <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                 </svg>
             </div>
         </div>

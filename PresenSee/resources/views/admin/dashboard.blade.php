@@ -97,12 +97,12 @@
 
 <!-- Quick Actions -->
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-    <!-- Tambah Guru Baru -->
-    <a href="{{ route('admin.guru') }}" class="flex items-center justify-center gap-3 bg-[#004680] text-white px-6 py-4 rounded-xl hover:bg-[#003766] transition-all duration-200 shadow-sm hover:shadow-md">
+    <!-- Tambah Siswa Baru -->
+    <a href="{{ route('admin.siswa') }}" class="flex items-center justify-center gap-3 bg-[#004680] text-white px-6 py-4 rounded-xl hover:bg-[#003766] transition-all duration-200 shadow-sm hover:shadow-md">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
         </svg>
-        <span class="font-semibold">Tambah Guru Baru</span>
+        <span class="font-semibold">Tambah Siswa Baru</span>
     </a>
     
     <!-- Tambah Kelas -->
