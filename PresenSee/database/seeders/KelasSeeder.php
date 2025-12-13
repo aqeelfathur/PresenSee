@@ -12,26 +12,29 @@ class KelasSeeder extends Seeder
      */
     public function run(): void
     {
+        // Truncate dulu untuk menghindari duplicate
+        DB::table('kelas')->truncate();
+        
+        $now = Carbon::now();
+        
         $kelas = [
             // Kelas 10
-            ['kode_kelas' => 'X-1', 'tahun_ajaran' => '2024/2025'],
-            ['kode_kelas' => 'X-2', 'tahun_ajaran' => '2024/2025'],
-            ['kode_kelas' => 'X-3', 'tahun_ajaran' => '2024/2025'],
+            ['kode_kelas' => 'X-1', 'tahun_ajaran' => '2024/2025', 'created_at' => $now, 'updated_at' => $now],
+            ['kode_kelas' => 'X-2', 'tahun_ajaran' => '2024/2025', 'created_at' => $now, 'updated_at' => $now],
+            ['kode_kelas' => 'X-3', 'tahun_ajaran' => '2024/2025', 'created_at' => $now, 'updated_at' => $now],
             
             // Kelas 11
-            ['kode_kelas' => 'XI-1', 'tahun_ajaran' => '2024/2025'],
-            ['kode_kelas' => 'XI-2', 'tahun_ajaran' => '2024/2025'],
-            ['kode_kelas' => 'XI-3', 'tahun_ajaran' => '2024/2025'],
+            ['kode_kelas' => 'XI-1', 'tahun_ajaran' => '2024/2025', 'created_at' => $now, 'updated_at' => $now],
+            ['kode_kelas' => 'XI-2', 'tahun_ajaran' => '2024/2025', 'created_at' => $now, 'updated_at' => $now],
+            ['kode_kelas' => 'XI-3', 'tahun_ajaran' => '2024/2025', 'created_at' => $now, 'updated_at' => $now],
             
             // Kelas 12
-            ['kode_kelas' => 'XII-1', 'tahun_ajaran' => '2024/2025'],
-            ['kode_kelas' => 'XII-2', 'tahun_ajaran' => '2024/2025'],
-            ['kode_kelas' => 'XII-3', 'tahun_ajaran' => '2024/2025'],
+            ['kode_kelas' => 'XII-1', 'tahun_ajaran' => '2024/2025', 'created_at' => $now, 'updated_at' => $now],
+            ['kode_kelas' => 'XII-2', 'tahun_ajaran' => '2024/2025', 'created_at' => $now, 'updated_at' => $now],
+            ['kode_kelas' => 'XII-3', 'tahun_ajaran' => '2024/2025', 'created_at' => $now, 'updated_at' => $now],
         ];
 
-        foreach ($kelas as $k) {
-            Kelas::create($k);
-        }
+        DB::table('kelas')->insert($kelas);
 
         $this->command->info('Kelas seeded successfully!');
     }

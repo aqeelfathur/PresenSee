@@ -12,22 +12,25 @@ class MapelSeeder extends Seeder
      */
     public function run(): void
     {
+        // Truncate dulu untuk menghindari duplicate
+        DB::table('mapel')->truncate();
+        
+        $now = Carbon::now();
+        
         $mapel = [
-            ['nama_mapel' => 'Matematika'],
-            ['nama_mapel' => 'Fisika'],
-            ['nama_mapel' => 'Kimia'],
-            ['nama_mapel' => 'Biologi'],
-            ['nama_mapel' => 'Bahasa Indonesia'],
-            ['nama_mapel' => 'Bahasa Inggris'],
-            ['nama_mapel' => 'Sejarah'],
-            ['nama_mapel' => 'Geografi'],
-            ['nama_mapel' => 'Ekonomi'],
-            ['nama_mapel' => 'Sosiologi'],
+            ['nama_mapel' => 'Matematika', 'created_at' => $now, 'updated_at' => $now],
+            ['nama_mapel' => 'Fisika', 'created_at' => $now, 'updated_at' => $now],
+            ['nama_mapel' => 'Kimia', 'created_at' => $now, 'updated_at' => $now],
+            ['nama_mapel' => 'Biologi', 'created_at' => $now, 'updated_at' => $now],
+            ['nama_mapel' => 'Bahasa Indonesia', 'created_at' => $now, 'updated_at' => $now],
+            ['nama_mapel' => 'Bahasa Inggris', 'created_at' => $now, 'updated_at' => $now],
+            ['nama_mapel' => 'Sejarah', 'created_at' => $now, 'updated_at' => $now],
+            ['nama_mapel' => 'Geografi', 'created_at' => $now, 'updated_at' => $now],
+            ['nama_mapel' => 'Ekonomi', 'created_at' => $now, 'updated_at' => $now],
+            ['nama_mapel' => 'Sosiologi', 'created_at' => $now, 'updated_at' => $now],
         ];
 
-        foreach ($mapel as $m) {
-            Mapel::create($m);
-        }
+        DB::table('mapel')->insert($mapel);
 
         $this->command->info('Mapel seeded successfully!');
     }

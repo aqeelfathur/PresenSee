@@ -45,6 +45,6 @@ class PresensiSeeder extends Seeder
             Presensi::insert($chunk);
         }
 
-        $this->command->info('Presensi seeded successfully! (~' . count($presensiData) . ' records)');
+        $this->command->info('✅ Presensi seeded successfully! (~' . count($presensiData) . ' records)');
     }
 }

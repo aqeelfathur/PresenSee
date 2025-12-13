@@ -13,6 +13,11 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        // Truncate dulu untuk menghindari duplicate
+        DB::table('users')->truncate();
+        
+        $now = Carbon::now();
+        
         $users = [
             // Admin
             [
@@ -21,6 +26,8 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('admin123'),
                 'role' => 'admin',
                 'status' => 'Aktif',
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
             
             // Guru Matematika
@@ -30,6 +37,8 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('guru123'),
                 'role' => 'guru',
                 'status' => 'Aktif',
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
             
             // Guru Fisika
@@ -39,6 +48,8 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('guru123'),
                 'role' => 'guru',
                 'status' => 'Aktif',
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
             
             // Guru Kimia
@@ -48,6 +59,8 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('guru123'),
                 'role' => 'guru',
                 'status' => 'Aktif',
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
             
             // Guru Biologi
@@ -57,6 +70,8 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('guru123'),
                 'role' => 'guru',
                 'status' => 'Aktif',
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
             
             // Guru Bahasa Inggris
@@ -66,13 +81,13 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('guru123'),
                 'role' => 'guru',
                 'status' => 'Aktif',
+                'created_at' => $now,
+                'updated_at' => $now,
             ],
         ];
 
-        foreach ($users as $user) {
-            User::create($user);
-        }
+        DB::table('users')->insert($users);
 
-        $this->command->info('Users seeded successfully!');
+        $this->command->info('✅ Users seeded successfully!');
     }
 }
