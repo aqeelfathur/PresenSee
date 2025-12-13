@@ -1,4 +1,4 @@
-    <?php
+   <?php
 
     use Illuminate\Support\Facades\Route;
     use App\Http\Controllers\Auth\AuthController;
@@ -96,6 +96,11 @@
         
         // Daftar Kelas
         Route::get('/daftar-kelas', [GuruController::class, 'daftarKelas'])->name('daftar-kelas');
+        
+        // API untuk Modal (AJAX)
+        Route::get('/daftar-kelas/siswa/{idKelas}', [GuruController::class, 'getDaftarSiswa'])->name('daftar-kelas.siswa');
+        Route::get('/daftar-kelas/pertemuan/{idMapelKelas}', [GuruController::class, 'getDaftarPertemuan'])->name('daftar-kelas.pertemuan');
+        
         
         // Wali Kelas
         Route::get('/wali-kelas', [GuruController::class, 'waliKelas'])->name('wali-kelas');

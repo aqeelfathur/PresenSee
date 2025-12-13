@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Sesi;
 use App\Models\MapelKelas;
 use App\Models\Presensi;
+use App\Models\Siswa;
+use App\Models\Kelas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -29,9 +31,7 @@ class GuruController extends Controller
             $query->where('id_guru', $guru->id_user);
         })->whereDate('tanggal_sesi', $today)->count();
         
-        $siswaAktif = DB::table('siswa')
-            ->where('status', 'Aktif')
-            ->count();
+
         
         // Sesi yang sedang berlangsung
         $sesiBerlangsung = $this->getSesiBerlangsung($guru->id_user);
@@ -39,7 +39,6 @@ class GuruController extends Controller
         return view('guru.dashboard', compact(
             'totalKelas',
             'sesiHariIni',
-            'siswaAktif',
             'sesiBerlangsung'
         ));
     }
@@ -130,7 +129,6 @@ class GuruController extends Controller
         
         // Get daftar siswa di kelas ini
         $siswa = DB::table('siswa')
-            ->where('status', 'Aktif')
             ->get();
         
         // Get data presensi yang sudah ada
@@ -201,9 +199,12 @@ class GuruController extends Controller
         $now = Carbon::now();
         $tanggalSesi = Carbon::parse($sesi->tanggal_sesi);
         
-        // Asumsi: jam belajar 07:00 - 15:00
-        $mulai = $tanggalSesi->copy()->setTime(7, 0);
-        $selesai = $tanggalSesi->copy()->setTime(15, 0);
+        // Gunakan jam dari database
+        $jamMulai = Carbon::parse($sesi->jam_mulai);
+        $jamSelesai = Carbon::parse($sesi->jam_selesai);
+        
+        $mulai = $tanggalSesi->copy()->setTimeFrom($jamMulai);
+        $selesai = $tanggalSesi->copy()->setTimeFrom($jamSelesai);
         
         if ($now->lt($mulai)) {
             return 'upcoming'; // Belum dimulai
@@ -213,15 +214,18 @@ class GuruController extends Controller
             return 'completed'; // Selesai
         }
     }
-
     /**
      * Helper: Get jumlah siswa
      */
     private function getJumlahSiswa($sesi)
     {
-        // TODO: Implement berdasarkan relasi siswa dengan kelas
-        // Untuk saat ini return dummy data
-        return rand(30, 35);
+        // Ambil id_kelas dari mapelKelas
+        $idKelas = $sesi->mapelKelas->id_kelas;
+        
+        // Hitung siswa berdasarkan kode_kelas (karena di tabel siswa pakai string 'kelas', bukan foreign key)
+        $kodeKelas = $sesi->mapelKelas->kelas->kode_kelas;
+        
+        return \App\Models\Siswa::where('kelas', $kodeKelas)->count();
     }
 
     /**
@@ -258,28 +262,131 @@ class GuruController extends Controller
             ->first();
     }
 
-    /**
-     * Daftar Kelas
+     /**
+     * Halaman Daftar Kelas yang diampu oleh guru
      */
     public function daftarKelas()
     {
         $guru = Auth::user();
         
-        $kelasList = MapelKelas::with(['mapel', 'kelas'])
+        // Ambil semua mapel_kelas yang diampu guru ini
+        $kelasData = MapelKelas::with(['mapel', 'kelas', 'sesi'])
             ->where('id_guru', $guru->id_user)
-            ->get();
+            ->get()
+            ->map(function ($mk) {
+                // Hitung jumlah siswa di kelas ini
+                $jumlahSiswa = \App\Models\Siswa::where('kelas', $mk->kelas->kode_kelas)->count();
+                
+                // Hitung jumlah pertemuan (sesi) untuk mapel_kelas ini
+                $jumlahPertemuan = $mk->sesi()->count();
+                
+                return [
+                    'id_mapel_kelas' => $mk->id_mapel_kelas,
+                    'id_kelas' => $mk->id_kelas,
+                    'kode_kelas' => $mk->kelas->kode_kelas,
+                    'nama_mapel' => $mk->mapel->nama_mapel,
+                    'jumlah_siswa' => $jumlahSiswa,
+                    'jumlah_pertemuan' => $jumlahPertemuan,
+                ];
+            });
         
-        return view('guru.daftar-kelas', compact('kelasList'));
+        // Hitung total statistik
+        $totalKelas = $kelasData->count();
+        $totalSiswa = $kelasData->sum('jumlah_siswa');
+        $totalPertemuan = $kelasData->sum('jumlah_pertemuan');
+        
+        return view('guru.daftar-kelas', compact(
+            'kelasData',
+            'totalKelas',
+            'totalSiswa',
+            'totalPertemuan'
+        ));
     }
 
     /**
-     * Wali Kelas
+     * API: Get daftar siswa per kelas (untuk modal)
      */
-    public function waliKelas()
+    public function getDaftarSiswa($idKelas)
     {
-        // TODO: Implement wali kelas functionality
-        return view('guru.wali-kelas');
+        $kelas = \App\Models\Kelas::findOrFail($idKelas);  
+        $siswa = \App\Models\Siswa::where('kelas', $kelas->kode_kelas)
+            ->orderBy('nama_siswa')
+            ->get()
+            ->map(function ($s) {
+                return [
+                    'id_siswa' => $s->id_siswa,
+                    'nama_siswa' => $s->nama_siswa,
+                    'nis' => $s->nis,
+                    'status' => $s->status,
+                    'avatar' => "https://ui-avatars.com/api/?name=" . urlencode($s->nama_siswa) . "&background=004680&color=fff&size=128"
+                ];
+            });
+        
+        return response()->json([
+            'success' => true,
+            'data' => $siswa
+        ]);
     }
+
+    /**
+     * API: Get daftar pertemuan per mapel_kelas (untuk modal)
+     */
+    public function getDaftarPertemuan($idMapelKelas)
+    {
+        $sesi = Sesi::with(['mapelKelas.mapel', 'mapelKelas.kelas', 'presensi'])
+            ->where('id_mapel_kelas', $idMapelKelas)
+            ->orderBy('tanggal_sesi', 'desc')
+            ->get()
+            ->map(function ($s, $index) {
+                $now = now();
+                $tanggalSesi = \Carbon\Carbon::parse($s->tanggal_sesi);
+
+                // Gunakan jam dari database
+                $jamMulai = Carbon::parse($s->jam_mulai);
+                $jamSelesai = Carbon::parse($s->jam_selesai);
+
+                $mulai = $tanggalSesi->copy()->setTimeFrom($jamMulai);
+                $selesai = $tanggalSesi->copy()->setTimeFrom($jamSelesai);
+                                
+                // Tentukan status pertemuan
+                if ($now->lt($mulai)) {
+                    $status = 'upcoming';
+                    $statusText = 'Belum Dimulai';
+                } elseif ($now->between($mulai, $selesai)) {
+                    $status = 'ongoing';
+                    $statusText = 'Berlangsung';
+                } else {
+                    $status = 'completed';
+                    $statusText = 'Selesai';
+                }
+                
+                // Hitung statistik presensi
+                $totalPresensi = $s->presensi->count();
+                $hadir = $s->presensi->where('status', 'presensi')->count();
+                
+                return [
+                    'id_sesi' => $s->id_sesi,
+                    'pertemuan_ke' => $index + 1,
+                    'tanggal_sesi' => $tanggalSesi->format('d M Y'),
+                    'tanggal_raw' => $tanggalSesi->format('Y-m-d'),
+                    'jam_mulai' => $jamMulai->format('H:i'), 
+                    'jam_selesai' => $jamSelesai->format('H:i'), 
+                    'jam_formatted' => $jamMulai->format('H:i') . ' - ' . $jamSelesai->format('H:i'), 
+                    'is_today' => $tanggalSesi->isToday(),
+                    'status' => $status,
+                    'status_text' => $statusText,
+                    'total_presensi' => $totalPresensi,
+                    'total_hadir' => $hadir,
+                ];
+            });
+        
+        return response()->json([
+            'success' => true,
+            'data' => $sesi
+        ]);
+    }
+
+  
 
     /**
      * Pengaturan

@@ -6,66 +6,10 @@
 
 @section('content')
 
-<!-- Stats Cards -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-    <!-- Total Sesi Hari Ini -->
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
-        <div class="flex items-center justify-between">
-            <div>
-                <p class="text-sm font-medium text-gray-600">Total Sesi</p>
-                <p class="text-2xl font-bold text-gray-900 mt-1">{{ $stats['total'] }}</p>
-            </div>
-            <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                <svg class="w-6 h-6 text-[#004680]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
-                </svg>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Belum Dimulai -->
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
-        <div class="flex items-center justify-between">
-            <div>
-                <p class="text-sm font-medium text-gray-600">Belum Dimulai</p>
-                <p class="text-2xl font-bold text-yellow-600 mt-1">{{ $stats['belum_dimulai'] }}</p>
-            </div>
-            <div class="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
-                <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Selesai -->
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
-        <div class="flex items-center justify-between">
-            <div>
-                <p class="text-sm font-medium text-gray-600">Selesai</p>
-                <p class="text-2xl font-bold text-green-600 mt-1">{{ $stats['selesai'] }}</p>
-            </div>
-            <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
-                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-            </div>
-        </div>
-    </div>
-</div>
-
 <!-- Filter Section -->
 <form method="GET" action="{{ route('guru.sesi-presensi') }}" class="mb-6">
     <div class="flex items-center justify-between">
         <div class="flex items-center gap-3">
-            <!-- Filter Status -->
-            <select name="status" class="px-4 py-2 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#004680] focus:border-transparent" onchange="this.form.submit()">
-                <option value="all" {{ $status == 'all' ? 'selected' : '' }}>Semua Status</option>
-                <option value="upcoming" {{ $status == 'upcoming' ? 'selected' : '' }}>Belum Dimulai</option>
-                <option value="ongoing" {{ $status == 'ongoing' ? 'selected' : '' }}>Berlangsung</option>
-                <option value="completed" {{ $status == 'completed' ? 'selected' : '' }}>Selesai</option>
-            </select>
-            
             <!-- Filter Tanggal -->
             <input 
                 type="date" 
@@ -130,8 +74,9 @@
                 <tr class="hover:bg-{{ $item->status_display == 'ongoing' ? 'blue-50/30' : 'gray-50' }} transition-colors duration-150">
                     <td class="px-6 py-4 whitespace-nowrap">
                         <div class="text-sm font-semibold text-gray-900">
-                            {{ \Carbon\Carbon::parse($item->tanggal_sesi)->format('H:i') }} - 
-                            {{ \Carbon\Carbon::parse($item->tanggal_sesi)->addMinutes(90)->format('H:i') }}
+                            {{ substr($item->jam_mulai, 0, 5) }}
+                            -
+                            {{ substr($item->jam_selesai, 0, 5) }}
                         </div>
                         <div class="text-xs text-gray-500">90 menit</div>
                     </td>

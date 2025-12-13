@@ -16,6 +16,8 @@
                 $table->foreignId('id_mapel_kelas')->constrained('mapel_kelas', 'id_mapel_kelas')->onDelete('cascade');
                 $table->foreignId('id_guru')->constrained('users', 'id_user')->onDelete('cascade');
                 $table->date('tanggal_sesi');
+                $table->time('jam_mulai');
+                $table->time('jam_selesai');
                 $table->timestamps();
             });
         }

@@ -14,10 +14,10 @@
             <div class="flex items-center gap-3 pl-4 border-l border-gray-200">
                 <div class="text-right">
                     @if(auth()->check() && auth()->user()->role === 'admin')
-                        <p class="text-sm font-semibold text-gray-900">{{ auth()->user()->name ?? 'Administrator' }}</p>
+                        <p class="text-sm font-semibold text-gray-900">{{ auth()->user()->nama_user}}</p>
                         <p class="text-xs text-gray-500">Admin</p>
                         @elseif(auth()->check() && auth()->user()->role === 'guru')
-                        <p class="text-sm font-semibold text-gray-900">{{ auth()->user()->name ?? 'Pak Budi' }}</p>
+                        <p class="text-sm font-semibold text-gray-900">{{ auth()->user()->nama_user }}</p>
                         <p class="text-xs text-gray-500">Guru</p>
                     @endif
                 </div>
