@@ -2,8 +2,12 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Presensi;
+use App\Models\Sesi;
+use App\Models\Siswa;
+use Carbon\Carbon;
+
 
 class PresensiSeeder extends Seeder
 {

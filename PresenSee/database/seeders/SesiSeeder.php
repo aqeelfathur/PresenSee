@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Sesi;
+use Carbon\Carbon;
 
 class SesiSeeder extends Seeder
 {
