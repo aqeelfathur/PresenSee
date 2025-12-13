@@ -1,54 +1,47 @@
 <?php
-
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Presensi;
-use App\Models\Sesi;
-use App\Models\Siswa;
-use Carbon\Carbon;
-
 
 class PresensiSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        // Ambil semua sesi yang sudah lewat (tidak termasuk hari ini dan masa depan)
-        $sesiList = Sesi::where('tanggal_sesi', '<', Carbon::today())
-            ->with('mapelKelas')
-            ->get();
+        // Presensi untuk sesi 1 (Matematika 7A, 5 hari lalu)
+        // Siswa kelas 7A: id 1-5
+        $presensi = [
+            // Sesi 1
+            ['id_sesi' => 1, 'id_siswa' => 1, 'status' => 'presensi'],
+            ['id_sesi' => 1, 'id_siswa' => 2, 'status' => 'presensi'],
+            ['id_sesi' => 1, 'id_siswa' => 3, 'status' => 'tidak'],
+            ['id_sesi' => 1, 'id_siswa' => 4, 'status' => 'presensi'],
+            ['id_sesi' => 1, 'id_siswa' => 5, 'status' => 'presensi'],
+            
+            // Sesi 2
+            ['id_sesi' => 2, 'id_siswa' => 1, 'status' => 'presensi'],
+            ['id_sesi' => 2, 'id_siswa' => 2, 'status' => 'presensi'],
+            ['id_sesi' => 2, 'id_siswa' => 3, 'status' => 'presensi'],
+            ['id_sesi' => 2, 'id_siswa' => 4, 'status' => 'tidak'],
+            ['id_sesi' => 2, 'id_siswa' => 5, 'status' => 'presensi'],
+            
+            // Sesi 3
+            ['id_sesi' => 3, 'id_siswa' => 1, 'status' => 'presensi'],
+            ['id_sesi' => 3, 'id_siswa' => 2, 'status' => 'presensi'],
+            ['id_sesi' => 3, 'id_siswa' => 3, 'status' => 'presensi'],
+            ['id_sesi' => 3, 'id_siswa' => 4, 'status' => 'presensi'],
+            ['id_sesi' => 3, 'id_siswa' => 5, 'status' => 'presensi'],
+            
+            // Sesi 4 (B. Indonesia 7A)
+            ['id_sesi' => 4, 'id_siswa' => 1, 'status' => 'presensi'],
+            ['id_sesi' => 4, 'id_siswa' => 2, 'status' => 'tidak'],
+            ['id_sesi' => 4, 'id_siswa' => 3, 'status' => 'presensi'],
+            ['id_sesi' => 4, 'id_siswa' => 4, 'status' => 'presensi'],
+            ['id_sesi' => 4, 'id_siswa' => 5, 'status' => 'presensi'],
+        ];
 
-        $presensiData = [];
-
-        foreach ($sesiList as $sesi) {
-            // Ambil siswa di kelas yang sesuai dengan sesi ini
-            $siswaList = Siswa::where('id_kelas', $sesi->mapelKelas->id_kelas)
-                ->where('status', 'Aktif')
-                ->get();
-
-            foreach ($siswaList as $siswa) {
-                // 90% kemungkinan hadir, 10% tidak hadir
-                $status = rand(1, 100) <= 90 ? 'presensi' : 'tidak';
-                
-                $presensiData[] = [
-                    'id_sesi' => $sesi->id_sesi,
-                    'id_siswa' => $siswa->id_siswa,
-                    'status' => $status,
-                    'created_at' => $sesi->tanggal_sesi . ' ' . rand(7, 8) . ':' . rand(0, 59) . ':00',
-                    'updated_at' => $sesi->tanggal_sesi . ' ' . rand(7, 8) . ':' . rand(0, 59) . ':00',
-                ];
-            }
+        foreach ($presensi as $p) {
+            Presensi::create($p);
         }
-
-        // Insert batch (chunk untuk menghindari memory limit)
-        $chunks = array_chunk($presensiData, 1000);
-        foreach ($chunks as $chunk) {
-            Presensi::insert($chunk);
-        }
-
-        $this->command->info('✅ Presensi seeded successfully! (~' . count($presensiData) . ' records)');
     }
 }
