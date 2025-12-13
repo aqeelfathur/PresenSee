@@ -13,40 +13,66 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // Admin
-        User::create([
-            'nama_user' => 'Administrator',
-            'email_user' => 'admin@presensee.com',
-            'password' => Hash::make('admin123'),
-            'role' => 'admin',
-            'status' => 'Aktif',
-        ]);
+        $users = [
+            // Admin
+            [
+                'nama_user' => 'Administrator',
+                'email_user' => 'admin@presensee.com',
+                'password' => Hash::make('admin123'),
+                'role' => 'admin',
+                'status' => 'Aktif',
+            ],
+            
+            // Guru Matematika
+            [
+                'nama_user' => 'Dr. Ahmad Fauzi, M.Pd',
+                'email_user' => 'ahmad.fauzi@presensee.com',
+                'password' => Hash::make('guru123'),
+                'role' => 'guru',
+                'status' => 'Aktif',
+            ],
+            
+            // Guru Fisika
+            [
+                'nama_user' => 'Siti Nurhaliza, S.Pd',
+                'email_user' => 'siti.nurhaliza@presensee.com',
+                'password' => Hash::make('guru123'),
+                'role' => 'guru',
+                'status' => 'Aktif',
+            ],
+            
+            // Guru Kimia
+            [
+                'nama_user' => 'Budi Santoso, M.Si',
+                'email_user' => 'budi.santoso@presensee.com',
+                'password' => Hash::make('guru123'),
+                'role' => 'guru',
+                'status' => 'Aktif',
+            ],
+            
+            // Guru Biologi
+            [
+                'nama_user' => 'Dewi Lestari, S.Pd',
+                'email_user' => 'dewi.lestari@presensee.com',
+                'password' => Hash::make('guru123'),
+                'role' => 'guru',
+                'status' => 'Aktif',
+            ],
+            
+            // Guru Bahasa Inggris
+            [
+                'nama_user' => 'Rudi Hartono, M.Pd',
+                'email_user' => 'rudi.hartono@presensee.com',
+                'password' => Hash::make('guru123'),
+                'role' => 'guru',
+                'status' => 'Aktif',
+            ],
+        ];
 
-        // Guru 1
-        User::create([
-            'nama_user' => 'Budi Santoso',
-            'email_user' => 'budi@presensee.com',
-            'password' => Hash::make('guru123'),
-            'role' => 'guru',
-            'status' => 'Aktif',
-        ]);
+        foreach ($users as $user) {
+            User::create($user);
+        }
 
-        // Guru 2
-        User::create([
-            'nama_user' => 'Siti Aminah',
-            'email_user' => 'siti@presensee.com',
-            'password' => Hash::make('guru123'),
-            'role' => 'guru',
-            'status' => 'Aktif',
-        ]);
-
-        // Guru 3 (Cuti)
-        User::create([
-            'nama_user' => 'Ahmad Hidayat',
-            'email_user' => 'ahmad@presensee.com',
-            'password' => Hash::make('guru123'),
-            'role' => 'guru',
-            'status' => 'Cuti',
-        ]);
+        $this->command->info('Users seeded successfully!');
     }
 }
