@@ -303,91 +303,33 @@ class GuruController extends Controller
         ));
     }
 
-    /**
-     * API: Get daftar siswa per kelas (untuk modal)
-     */
-    public function getDaftarSiswa($idKelas)
+    public function daftarSiswaKelas($id_mapel_kelas)
     {
-        $kelas = \App\Models\Kelas::findOrFail($idKelas);  
-        $siswa = \App\Models\Siswa::where('kelas', $kelas->kode_kelas)
-            ->orderBy('nama_siswa')
-            ->get()
-            ->map(function ($s) {
-                return [
-                    'id_siswa' => $s->id_siswa,
-                    'nama_siswa' => $s->nama_siswa,
-                    'nis' => $s->nis,
-                    'status' => $s->status,
-                    'avatar' => "https://ui-avatars.com/api/?name=" . urlencode($s->nama_siswa) . "&background=004680&color=fff&size=128"
-                ];
-            });
-        
-        return response()->json([
-            'success' => true,
-            'data' => $siswa
-        ]);
+        $guru = Auth::user();
+
+        // Ambil mapel_kelas + validasi milik guru
+        $mapelKelas = MapelKelas::with(['mapel', 'kelas'])
+            ->where('id_mapel_kelas', $id_mapel_kelas)
+            ->where('id_guru', $guru->id_user)
+            ->firstOrFail();
+
+        // Ambil kode kelas
+        $kodeKelas = $mapelKelas->kelas->kode_kelas;
+
+        // Ambil daftar siswa di kelas tersebut
+        $siswa = Siswa::where('kelas', $kodeKelas)
+            ->orderBy('nama_siswa', 'asc')
+            ->get();
+
+        // Statistik ringan (opsional tapi berguna)
+        $totalSiswa = $siswa->count();
+
+        return view('guru.daftar-siswa-kelas', compact(
+            'mapelKelas',
+            'siswa',
+            'totalSiswa'
+        ));
     }
-
-    /**
-     * API: Get daftar pertemuan per mapel_kelas (untuk modal)
-     */
-    public function getDaftarPertemuan($idMapelKelas)
-    {
-        $sesi = Sesi::with(['mapelKelas.mapel', 'mapelKelas.kelas', 'presensi'])
-            ->where('id_mapel_kelas', $idMapelKelas)
-            ->orderBy('tanggal_sesi', 'desc')
-            ->get()
-            ->map(function ($s, $index) {
-                $now = now();
-                $tanggalSesi = \Carbon\Carbon::parse($s->tanggal_sesi);
-
-                // Gunakan jam dari database
-                $jamMulai = Carbon::parse($s->jam_mulai);
-                $jamSelesai = Carbon::parse($s->jam_selesai);
-
-                $mulai = $tanggalSesi->copy()->setTimeFrom($jamMulai);
-                $selesai = $tanggalSesi->copy()->setTimeFrom($jamSelesai);
-                                
-                // Tentukan status pertemuan
-                if ($now->lt($mulai)) {
-                    $status = 'upcoming';
-                    $statusText = 'Belum Dimulai';
-                } elseif ($now->between($mulai, $selesai)) {
-                    $status = 'ongoing';
-                    $statusText = 'Berlangsung';
-                } else {
-                    $status = 'completed';
-                    $statusText = 'Selesai';
-                }
-                
-                // Hitung statistik presensi
-                $totalPresensi = $s->presensi->count();
-                $hadir = $s->presensi->where('status', 'presensi')->count();
-                
-                return [
-                    'id_sesi' => $s->id_sesi,
-                    'pertemuan_ke' => $index + 1,
-                    'tanggal_sesi' => $tanggalSesi->format('d M Y'),
-                    'tanggal_raw' => $tanggalSesi->format('Y-m-d'),
-                    'jam_mulai' => $jamMulai->format('H:i'), 
-                    'jam_selesai' => $jamSelesai->format('H:i'), 
-                    'jam_formatted' => $jamMulai->format('H:i') . ' - ' . $jamSelesai->format('H:i'), 
-                    'is_today' => $tanggalSesi->isToday(),
-                    'status' => $status,
-                    'status_text' => $statusText,
-                    'total_presensi' => $totalPresensi,
-                    'total_hadir' => $hadir,
-                ];
-            });
-        
-        return response()->json([
-            'success' => true,
-            'data' => $sesi
-        ]);
-    }
-
-  
-
     /**
      * Pengaturan
      */

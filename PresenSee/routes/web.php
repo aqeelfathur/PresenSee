@@ -96,10 +96,9 @@
         
         // Daftar Kelas
         Route::get('/daftar-kelas', [GuruController::class, 'daftarKelas'])->name('daftar-kelas');
-        
-        // API untuk Modal (AJAX)
-        Route::get('/daftar-kelas/siswa/{idKelas}', [GuruController::class, 'getDaftarSiswa'])->name('daftar-kelas.siswa');
-        Route::get('/daftar-kelas/pertemuan/{idMapelKelas}', [GuruController::class, 'getDaftarPertemuan'])->name('daftar-kelas.pertemuan');
+
+        // Daftar Siswa Kelas
+        Route::get('/kelas/{id_mapel_kelas}/siswa', [GuruController::class, 'daftarSiswaKelas'])->name('daftar-siswa-kelas');
         
         
         // Wali Kelas
