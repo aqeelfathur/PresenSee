@@ -142,16 +142,7 @@
             <div class="text-sm text-gray-500 mt-1"><span id="persentaseBelum">{{ 100 - $stats['persentase'] }}%</span> dari total</div>
         </div>
         
-        <!-- Recent Activity -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
-            <div class="flex items-center justify-between mb-3">
-                <span class="text-sm font-semibold text-gray-700">Aktivitas Terbaru</span>
-                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-            </div>
-            <div id="recentActivity" class="space-y-2 max-h-32 overflow-y-auto">
-                <p class="text-xs text-gray-400">Menunggu aktivitas...</p>
-            </div>
-        </div>
+        
     </div>
 </div>
 

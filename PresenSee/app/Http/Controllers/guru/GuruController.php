@@ -119,25 +119,59 @@ class GuruController extends Controller
     public function presensiKamera($id)
     {
         $guru = Auth::user();
-        
-        // Get sesi dengan validasi kepemilikan
+
         $sesi = Sesi::with(['mapelKelas.mapel', 'mapelKelas.kelas', 'presensi.siswa'])
-            ->whereHas('mapelKelas', function($q) use ($guru) {
+            ->whereHas('mapelKelas', function ($q) use ($guru) {
                 $q->where('id_guru', $guru->id_user);
             })
             ->findOrFail($id);
-        
-        // Get daftar siswa di kelas ini
-        $siswa = DB::table('siswa')
+
+        // ambil siswa sesuai kelas
+        $kodeKelas = $sesi->mapelKelas->kelas->kode_kelas;
+
+        $siswa = Siswa::where('kelas', $kodeKelas)
+            ->orderBy('nama_siswa')
             ->get();
-        
-        // Get data presensi yang sudah ada
-        $presensiExisting = Presensi::where('id_sesi', $id)
-            ->pluck('status', 'id_siswa')
-            ->toArray();
-        
-        return view('guru.presensi-kamera', compact('sesi', 'siswa', 'presensiExisting'));
+
+        // presensi existing
+        $presensiMap = Presensi::where('id_sesi', $id)
+            ->get()
+            ->keyBy('id_siswa');
+
+        // gabungkan siswa + presensi
+        $siswaWithPresensi = $siswa->map(function ($s) use ($presensiMap) {
+            $presensi = $presensiMap->get($s->id_siswa);
+
+            return [
+                'id_siswa'     => $s->id_siswa,
+                'nis'          => $s->nis,
+                'nama_siswa'   => $s->nama_siswa,
+                'avatar'       => $s->foto_siswa
+                    ? asset('storage/' . $s->foto_siswa)
+                    : asset('images/default-avatar.png'),
+                'status'       => $presensi->status ?? 'belum',
+                'waktu_absen'  => $presensi->created_at ?? null,
+            ];
+        });
+
+        // statistik
+        $total = $siswaWithPresensi->count();
+        $hadir = $siswaWithPresensi->where('status', 'presensi')->count();
+
+        $stats = [
+            'total'        => $total,
+            'hadir'        => $hadir,
+            'belum_hadir'  => $total - $hadir,
+            'persentase'   => $total > 0 ? round(($hadir / $total) * 100) : 0,
+        ];
+
+        return view('guru.presensi-kamera', compact(
+            'sesi',
+            'siswaWithPresensi',
+            'stats'
+        ));
     }
+
 
     /**
      * Simpan Presensi

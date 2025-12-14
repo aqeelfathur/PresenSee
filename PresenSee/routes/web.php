@@ -87,9 +87,15 @@
         // Sesi Presensi
         Route::get('/sesi-presensi', [GuruController::class, 'sesiPresensi'])->name('sesi-presensi');
         
-        // Presensi Kamera (Face Recognition)
-        Route::get('/presensi-kamera/{id}', [GuruController::class, 'presensiKamera'])->name('presensi-kamera');
-        Route::post('/presensi-kamera/{id}/simpan', [GuruController::class, 'simpanPresensi'])->name('presensi-kamera.simpan');
+        // Presensi Kamera
+        Route::get('/presensi-kamera/{id}', [GuruController::class, 'presensiKamera'])
+            ->name('presensi-kamera');
+
+        Route::post('/presensi-kamera/{id}/simpan', [GuruController::class, 'simpanPresensi'])
+            ->name('presensi-kamera.simpan');
+
+        Route::post('/presensi-kamera/{id}/akhiri', [GuruController::class, 'akhiriPresensi'])
+            ->name('presensi-kamera.akhiri');
         
         // Download Laporan Presensi
         Route::get('/presensi/{id}/download', [GuruController::class, 'downloadPresensi'])->name('presensi.download');
