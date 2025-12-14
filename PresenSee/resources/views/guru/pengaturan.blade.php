@@ -181,58 +181,7 @@
         </form>
     </div>
     
-    <!-- Additional Settings -->
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-        <div class="px-6 py-4 border-b border-gray-100">
-            <h2 class="text-lg font-bold text-gray-900">Preferensi</h2>
-            <p class="text-sm text-gray-500 mt-0.5">Atur preferensi notifikasi dan tampilan</p>
-        </div>
-        
-        <div class="p-6 space-y-6">
-            <!-- Email Notifications -->
-            <div class="flex items-center justify-between">
-                <div>
-                    <h3 class="text-sm font-medium text-gray-900">Notifikasi Email</h3>
-                    <p class="text-xs text-gray-500 mt-1">Terima notifikasi penting melalui email</p>
-                </div>
-                <button class="relative inline-flex h-6 w-11 items-center rounded-full bg-[#004680] transition-colors">
-                    <span class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform translate-x-6"></span>
-                </button>
-            </div>
-            
-            <!-- Session Reminder -->
-            <div class="flex items-center justify-between">
-                <div>
-                    <h3 class="text-sm font-medium text-gray-900">Pengingat Sesi</h3>
-                    <p class="text-xs text-gray-500 mt-1">Dapatkan pengingat 15 menit sebelum sesi dimulai</p>
-                </div>
-                <button class="relative inline-flex h-6 w-11 items-center rounded-full bg-[#004680] transition-colors">
-                    <span class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform translate-x-6"></span>
-                </button>
-            </div>
-            
-            <!-- Dark Mode -->
-            <div class="flex items-center justify-between">
-                <div>
-                    <h3 class="text-sm font-medium text-gray-900">Mode Gelap</h3>
-                    <p class="text-xs text-gray-500 mt-1">Aktifkan tampilan mode gelap</p>
-                </div>
-                <button class="relative inline-flex h-6 w-11 items-center rounded-full bg-gray-300 transition-colors">
-                    <span class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform translate-x-1"></span>
-                </button>
-            </div>
-            
-            <!-- Language -->
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Bahasa</label>
-                <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#004680] focus:border-transparent">
-                    <option selected>Bahasa Indonesia</option>
-                    <option>English</option>
-                </select>
-            </div>
-        </div>
-    </div>
-</div>
+    
 
 <script>
 // Toggle switches (dummy functionality)
