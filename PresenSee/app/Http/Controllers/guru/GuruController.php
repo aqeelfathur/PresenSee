@@ -330,6 +330,53 @@ class GuruController extends Controller
             'totalSiswa'
         ));
     }
+    
+    
+    public function daftarSesiKelas($id_mapel_kelas)
+    {
+        $guru = Auth::user();
+
+        // Pastikan mapel_kelas ini milik guru yang login
+        $mapelKelas = MapelKelas::with(['mapel', 'kelas'])
+            ->where('id_mapel_kelas', $id_mapel_kelas)
+            ->where('id_guru', $guru->id_user)
+            ->firstOrFail();
+
+        // Ambil semua sesi untuk mapel_kelas ini
+        $sesiList = Sesi::with('presensi')
+            ->where('id_mapel_kelas', $id_mapel_kelas)
+            ->orderBy('tanggal_sesi')
+            ->orderBy('jam_mulai')
+            ->get();
+
+        // Transform data sesi untuk view
+        $sesiData = $sesiList->map(function ($sesi, $index) {
+            $status = $this->getSesiStatus($sesi);
+            $kehadiran = $this->getKehadiran($sesi);
+
+            return [
+                'id_sesi'       => $sesi->id_sesi,
+                'pertemuan_ke'  => $index + 1,
+                'tanggal'       => $sesi->tanggal_sesi->translatedFormat('d F Y'),
+                'jam'           => $sesi->getJamFormatted(),
+                'durasi'        => $sesi->getDurasiMenit() . ' menit',
+                'kehadiran'     => $kehadiran['hadir'] . ' / ' . $kehadiran['total'],
+                'status'        => $status,
+                'aksi'          => match ($status) {
+                    'upcoming'  => 'belum-dimulai',
+                    'ongoing'   => 'berlangsung',
+                    'completed' => 'download',
+                },
+            ];
+        });
+
+        return view('guru.daftar-sesi-kelas', [
+            'mapelKelas' => $mapelKelas,
+            'sesiData'   => $sesiData,
+        ]);
+    }
+
+
     /**
      * Pengaturan
      */

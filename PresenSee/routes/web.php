@@ -100,6 +100,8 @@
         // Daftar Siswa Kelas
         Route::get('/kelas/{id_mapel_kelas}/siswa', [GuruController::class, 'daftarSiswaKelas'])->name('daftar-siswa-kelas');
         
+        // Daftar Sesi Kelas
+        Route::get('/kelas/{id_mapel_kelas}/sesi', [GuruController::class, 'daftarSesiKelas'])->name('daftar-sesi-kelas');
         
         // Wali Kelas
         Route::get('/wali-kelas', [GuruController::class, 'waliKelas'])->name('wali-kelas');
